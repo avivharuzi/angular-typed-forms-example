@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "projects": {
+    "angular-typed-forms-example": {
+      "projectType": "application",
+      "root": "apps/angular-typed-forms-example",
+      "sourceRoot": "apps/angular-typed-forms-example/src",
+      "prefix": "angular-typed-forms-example",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/angular-typed-forms-example",
+            "index": "apps/angular-typed-forms-example/src/index.html",
+            "main": "apps/angular-typed-forms-example/src/main.ts",
+            "polyfills": "apps/angular-typed-forms-example/src/polyfills.ts",
+            "tsConfig": "apps/angular-typed-forms-example/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/angular-typed-forms-example/src/favicon.ico",
+              "apps/angular-typed-forms-example/src/assets"
+            ],
+            "styles": ["apps/angular-typed-forms-example/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/angular-typed-forms-example/src/environments/environment.ts",
+                  "with": "apps/angular-typed-forms-example/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "angular-typed-forms-example:build:production"
+            },
+            "development": {
+              "browserTarget": "angular-typed-forms-example:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "angular-typed-forms-example:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/angular-typed-forms-example/src/**/*.ts",
+              "apps/angular-typed-forms-example/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/angular-typed-forms-example"],
+          "options": {
+            "jestConfig": "apps/angular-typed-forms-example/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "angular-typed-forms-example-e2e": {
+      "root": "apps/angular-typed-forms-example-e2e",
+      "sourceRoot": "apps/angular-typed-forms-example-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/angular-typed-forms-example-e2e/cypress.json",
+            "devServerTarget": "angular-typed-forms-example:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "angular-typed-forms-example:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "apps/angular-typed-forms-example-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["angular-typed-forms-example"]
+    }
+  }
+}
