@@ -1,0 +1,31 @@
+<form [formGroup]="typedForm" (ngSubmit)="onSubmit()">
+  <div>
+    <input type="text" placeholder="First name" formControlName="firstName" />
+  </div>
+  <div>
+    <input type="text" placeholder="Last name" formControlName="lastName" />
+  </div>
+  <div>
+    <input type="number" formControlName="age" />
+  </div>
+  <div formGroupName="job">
+    <input type="text" placeholder="Job name" formControlName="name" />
+  </div>
+  <div formArrayName="projects">
+    <div
+      *ngFor="
+        let project of typedForm.controls.projects.controls;
+        let i = index
+      "
+    >
+      <div [formGroup]="project">
+        <input type="text" placeholder="Project path" formControlName="path" />
+        <button *ngIf="i > 0" (click)="removeProject(i)">Remove</button>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button (click)="addProject()">Add project</button>
+  </div>
+  <button type="submit">Submit Form</button>
+</form>
